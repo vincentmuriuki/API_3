@@ -18,9 +18,7 @@ class TestOrders(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
 
-    def tearDown(self):
-        self.app_context.pop()
-    
+
     def test_get_orders(self):
         response = self.client.get(
             "/api/v1/orders",
