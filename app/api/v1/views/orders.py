@@ -23,3 +23,22 @@ class Orders(Resource, CustomerOrders):
                 'Orders' : orders
             }
         ))
+
+class NewOrder(Resource, CustomerOrders):
+    def __init__(self):
+        self.man = CustomerOrders()
+
+    def post(self):
+        data = request.get_json()
+        name = data['name']
+        price = data['price']
+        quantity = data['quantity']
+
+        res = self.man.save(name, price, quantity)
+        return make_response(jsonify(
+            {
+                'Status' : 'Delivered',
+                'Message' : 'Order Placed!',
+                'Order_Data' : res
+            }
+        ))
