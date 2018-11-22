@@ -29,3 +29,13 @@ class TestOrders(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
         
+    def test_post_orders(self):
+        dummy_data = {
+            "name" : "Chicken",
+            "price" : "500",
+            "quantity" : "1"
+        }
+        res = self.client.post('/api/v1/orders/new', data=json.dumps(dummy_data), content_type='application/json')
+        result = json.loads(res.data)
+        self.assertEqual(result['Message'], "Order Placed!")
+        self.assertEqual(res.status_code, 200)
